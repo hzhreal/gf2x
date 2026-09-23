@@ -30,9 +30,9 @@ newtype GF2x = GF2x Natural
 
 instance Ring GF2x where
   zero = φ 0
-  zero' = undefined
+  zero' f = zero
   one = φ 1
-  one' = undefined
+  one' f = one
 
   iden = id
 
