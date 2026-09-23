@@ -92,22 +92,23 @@ showPoly f
   | f .==. zero = "0"
   | otherwise =
       foldl'
-        ( \s i ->
-            if not a_0 && not a_1 && i == j
-              then "x^" ++ "{" ++ show i ++ "}"
-              else s ++ " + x^" ++ "{" ++ show i ++ "}"
-        )
-        s'
-        (filter (isTermMono f) [2 .. m])
+        (\s i -> s ++ " + x^{" ++ show i ++ "}")
+        s
+        (filter (isTermMono f) (if m > 2 then [(m - 1), (m - 2) .. 2] else []))
+        ++ s'
   where
     m = deg f
-    j = head (filter (isTermMono f) [2 .. m])
     a_0 = isTermMono f 0
     a_1 = isTermMono f 1
+    s
+      | m == 0 = "1"
+      | m == 1 = "x"
+      | otherwise = "x^{" ++ show m ++ "}"
     s'
-      | a_0 && a_1 = "1 + x"
-      | a_0 = "1"
-      | a_1 = "x"
+      | m > 1 && a_1 && a_0 = " + x + 1"
+      | m > 1 && a_1 = " + x"
+      | m > 1 && a_0 = " + 1"
+      | m == 1 && a_0 = " + 1"
       | otherwise = ""
 
 deg :: GF2x -> Integer
