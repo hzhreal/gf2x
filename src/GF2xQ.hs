@@ -10,6 +10,8 @@ module GF2xQ
     (.**.),
     (.==.),
     (.!=.),
+    mulInv,
+    (.***.),
     φ',
     π',
     ψ,
@@ -71,7 +73,7 @@ instance Field GF2xQ where
     | n < 0 = mulInv f' .**. n
     | otherwise = f' .**. n
 
-φ' :: (Integral a) => (a, a) -> GF2xQ
+φ' :: (Integral a, Integral b) => (a, b) -> GF2xQ
 φ' (n, q) = GF2xQ (φ n) (φ q)
 
 π' :: GF2x -> GF2x -> GF2xQ
