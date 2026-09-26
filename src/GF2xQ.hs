@@ -10,6 +10,7 @@ module GF2xQ
     (.**.),
     (.==.),
     (.!=.),
+    φ',
     π',
     ψ,
     unwrapQ,
@@ -70,6 +71,9 @@ instance Field GF2xQ where
     | n < 0 = mulInv f' .**. n
     | otherwise = f' .**. n
 
+φ' :: (Integral a) => (a, a) -> GF2xQ
+φ' (n, q) = GF2xQ (φ n) (φ q)
+
 π' :: GF2x -> GF2x -> GF2xQ
 π' p f = iden (GF2xQ f p)
 
@@ -85,4 +89,4 @@ unwrapQ' :: GF2xQ -> (Natural, Natural)
 unwrapQ' (GF2xQ f p) = (unwrap f, unwrap p)
 
 showPolyQ :: GF2xQ -> String
-showPolyQ (GF2xQ f p) = showPoly f ++ "(" ++ showPoly p ++ ")"
+showPolyQ (GF2xQ f p) = showPoly f ++ " + (" ++ showPoly p ++ ")"
