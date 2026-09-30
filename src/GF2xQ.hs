@@ -73,8 +73,8 @@ instance Field GF2xQ where
     | n < 0 = mulInv f' .**. n
     | otherwise = f' .**. n
 
-φ' :: (Integral a, Integral b) => (a, b) -> GF2xQ
-φ' (n, q) = GF2xQ (φ n) (φ q)
+φ' :: (Integral a, Integral b) => a -> b -> GF2xQ
+φ' p n = GF2xQ (φ n) (φ p)
 
 π' :: GF2x -> GF2x -> GF2xQ
 π' p f = iden (GF2xQ f p)

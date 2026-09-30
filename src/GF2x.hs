@@ -17,6 +17,7 @@ module GF2x
     showPoly,
     deg,
     mono,
+    dot,
   )
 where
 
@@ -118,6 +119,11 @@ deg f@(GF2x a)
 
 mono :: (Integral a) => a -> GF2x
 mono = mulByMono one
+
+dot :: GF2x -> GF2x -> Bool
+dot (GF2x a) (GF2x b) = foldl' (.^.) False [c .&. (1 .<<. i) /= 0 | i <- [7, 6 .. 0]]
+  where
+    c = a .&. b
 
 mulByMono :: (Integral a) => GF2x -> a -> GF2x
 mulByMono (GF2x a) mDeg
